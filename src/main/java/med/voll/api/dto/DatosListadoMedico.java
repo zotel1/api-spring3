@@ -12,6 +12,5 @@ public record DatosListadoMedico(
 
     public DatosListadoMedico(Medico medico) {
         this(medico.getId(), medico.getNombre(), medico.getEspecialidad().toString(), medico.getDocumento(), medico.getEmail());
-
     }
 }
