@@ -1,6 +1,6 @@
 package med.voll.api.dto;
 
-import med.voll.api.direccion.DatosDireccion;
+import med.voll.api.domain.direccion.DatosDireccion;
 
 public record DatosRegistroPaciente(
         String nombre,

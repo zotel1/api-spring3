@@ -2,19 +2,18 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.direccion.DatosDireccion;
-import med.voll.api.dto.DatosActualizarMedico;
-import med.voll.api.dto.DatosRegistroMedico;
-import med.voll.api.dto.DatosListadoMedico;
-import med.voll.api.medico.Medico;
-import med.voll.api.repository.MedicoRepository;
+import med.voll.api.domain.direccion.DatosDireccion;
+import med.voll.api.domain.medico.DatosActualizarMedico;
+import med.voll.api.domain.medico.DatosRegistroMedico;
+import med.voll.api.domain.medico.DatosListadoMedico;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -57,17 +56,23 @@ public class MedicoController {
                         medico.getDireccion().getComplemento())));
     }
 
-    // Delete logico faltaria editar este metodo y agregar el metodo retornarDatosMedico
+    // Delete logico
     @DeleteMapping("/{id}")
     @Transactional
-    public void eliminarMedico(@PathVariable Long id) {
+    public ResponseEntity eliminarMedico(@PathVariable Long id) {
         Medico medico = medicoRepository.getReferenceById(id);
         medico.desactivarMedico();
+        return ResponseEntity.noContent().build();
     }
 
-    // Delete en base de datos
-    // public void eliminarMedico(@PathVariable Long id) {
-    //    Medico medico = medicoRepository.getReferenceById(id);
-    //    medicoRepository.delete(medico);
-    //}
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosRespuestaMedico> retornaDatosMedico(@PathVariable Long id) {
+        Medico medico = medicoRepository.getReferenceById(id);
+        var datosMedico = new DatosRespuestaMedico(medico.getId(), medico.getNombre(), medico.getEmail(),
+                medico.getTelefono(), medico.getEspecialidad().toString(),
+                new DatosDireccion(medico.getDireccion().getCalle(), medico.getDireccion().getDistrito(),
+                        medico.getDireccion().getCiudad(), medico.getDireccion().getNumero(),
+                        medico.getDireccion().getComplemento()));
+        return ResponseEntity.ok(datosMedico);
+    }
 }
