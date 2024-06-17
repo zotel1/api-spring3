@@ -24,12 +24,12 @@ public class AutenticacionController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity realizarLogin(@RequestBody @Valid DatosAutenticacion datos) {
-
-        Authentication autheToken = new UsernamePasswordAuthenticationToken(datos.login(), datos.contrasena());
-        var authenticacion = manager.authenticate(token);
-        var JWTtoken = tokenService.generarToken();
-        return ResponseEntity.ok(JWTtoken);
+    public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datos) {
+        Authentication token = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
+                datosAutenticacionUsuario.clave());
+        authenticationManager.authenticate(token);
+        return ResponseEntity.ok().build();
     }
+
 
 }
