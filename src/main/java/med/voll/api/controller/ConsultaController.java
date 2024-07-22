@@ -24,6 +24,7 @@ public class ConsultaController {
     public ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos) {
 
 
+
         return ResponseEntity.ok(new DatosDetalleConsulta(null, null, null, null));
 
     }
