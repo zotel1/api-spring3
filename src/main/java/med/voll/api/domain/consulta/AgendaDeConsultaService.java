@@ -24,7 +24,7 @@ public class AgendaDeConsultaService {
 
         var medico = medicoRepository.findById(datos.idMedico()).get();
 
-        var consulta = new Consulta(null, new Medico(),new Paciente(), datos.fecha());
+        var consulta = new Consulta(null, medico,paciente, datos.fecha());
         consultaRepository.save(consulta);
     }
 }
