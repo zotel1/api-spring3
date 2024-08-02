@@ -4,7 +4,7 @@ import jakarta.validation.ValidationException;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
 import med.voll.api.domain.medico.MedicoRepository;
 
-public class MedicoActivo {
+public class MedicoActivo implements ValidadorDeConsultas{
 
     private MedicoRepository repository;
 
@@ -15,7 +15,7 @@ public class MedicoActivo {
         var medicoActivo = repository.findActivoById(datos.idMedico());
 
         if (!medicoActivo) {
-            throw new ValidationException("No se pueden permitir citas con un medico inactivo");
+            throw new ValidationException("No se pueden permitir citas con medicos inactivos en el sistema");
         }
     }
 }

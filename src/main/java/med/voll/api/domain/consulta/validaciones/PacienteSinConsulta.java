@@ -5,7 +5,7 @@ import med.voll.api.domain.consulta.ConsultaRepository;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
 import med.voll.api.domain.paciente.PacienteRepository;
 
-public class PacienteSinConsulta {
+public class PacienteSinConsulta implements ValidadorDeConsultas{
 
     private ConsultaRepository repository;
 

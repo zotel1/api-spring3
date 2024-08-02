@@ -4,7 +4,7 @@ import jakarta.validation.ValidationException;
 import med.voll.api.domain.consulta.ConsultaRepository;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
 
-public class MedicoConConsulta {
+public class MedicoConConsulta implements ValidadorDeConsultas{
 
 
     private ConsultaRepository repository;

@@ -4,7 +4,7 @@ import jakarta.validation.ValidationException;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
 import med.voll.api.domain.paciente.PacienteRepository;
 
-public class PacienteActivo {
+public class PacienteActivo implements ValidadorDeConsultas{
 
     private PacienteRepository repository;
 
