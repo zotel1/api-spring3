@@ -9,7 +9,7 @@ public class PacienteActivo {
     private PacienteRepository repository;
 
     public void validar(DatosAgendarConsulta datos) {
-        if (datos.idPaciente() == null()) {
+        if (datos.idPaciente() == null) {
             return;
         }
 
