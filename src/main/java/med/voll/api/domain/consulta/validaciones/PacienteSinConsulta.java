@@ -17,7 +17,7 @@ public class PacienteSinConsulta {
         var pacienteConConsulta = repository.existsByPacienteIdAndDataBetween(datos.idPaciente(), primerHorario, ultimoHorario);
 
         if( pacienteConConsulta) {
-            throw new ValidationException("");
+            throw new ValidationException("El paciente ya tiene una consulta para ese dia.");
         }
     }
 }
