@@ -6,9 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.direccion.Direccion;
-import med.voll.api.domain.medico.DatosActualizarMedico;
-import med.voll.api.domain.medico.DatosRegistroMedico;
-import med.voll.api.domain.medico.Especialidad;
 import med.voll.api.dto.DatosRegistroPaciente;
 
 @Table(name = "pacientes")
