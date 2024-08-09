@@ -53,6 +53,17 @@ public class AgendaDeConsultaService {
         return new DatosDetalleConsulta(consulta);
     }
 
+    public void cancelar(DatosCancelamientoConsulta datos) {
+        if (!consultaRepository(datos.idConsulta())) {
+            throw new ValidacionDeIntegridad("Id de la consulta informado no existe!");
+        }
+
+        validadoresCancelamiento.forEach(v -> v.validar(datos));
+
+        var consulta = consultaRepository.getReferenceById(datos.idConsulta());
+        consulta.cancelar(datos.motivo());
+    }
+
     private Medico seleccionarMedico(DatosAgendarConsulta datos) {
 
         if(datos.idMedico()!= null) {
