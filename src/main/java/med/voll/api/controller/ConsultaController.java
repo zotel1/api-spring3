@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultaService;
@@ -27,8 +28,14 @@ public class ConsultaController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping@Transactional
-    public ResponseEntity cancelar(@RequestBody @Valid DatosCancelamientoConsulta cancelar) {
+    @DeleteMapping
+    @Transactional
+    @Operation(
+            summary = "cancela una consulta de la agenda",
+            description = "requiere motivo",
+            tags = { "consulta", "delete"}
+    )
+    public ResponseEntity cancelar(@RequestBody @Valid DatosCancelamientoConsulta datos) {
         service.cancelar(datos);
         return ResponseEntity.noContent().build();
     }

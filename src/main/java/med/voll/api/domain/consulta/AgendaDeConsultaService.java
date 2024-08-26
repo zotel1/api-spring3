@@ -1,5 +1,6 @@
 package med.voll.api.domain.consulta;
 
+import med.voll.api.domain.consulta.desafio.ValidadorCancelamientoDeConsulta;
 import med.voll.api.domain.consulta.validaciones.HorarioDeAnticipacion;
 import med.voll.api.domain.consulta.validaciones.ValidadorDeConsultas;
 import med.voll.api.domain.medico.Medico;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("all")
 public class AgendaDeConsultaService {
 
     @Autowired
@@ -20,12 +22,14 @@ public class AgendaDeConsultaService {
     @Autowired
     private MedicoRepository medicoRepository;
 
-
     @Autowired
     private  ConsultaRepository consultaRepository;
 
     @Autowired
     List<ValidadorDeConsultas> validadores;
+
+    @Autowired
+    private List<ValidadorCancelamientoDeConsulta> validadoresCancelamiento;
 
     public DatosDetalleConsulta agendar(DatosAgendarConsulta datos) {
 
@@ -54,7 +58,7 @@ public class AgendaDeConsultaService {
     }
 
     public void cancelar(DatosCancelamientoConsulta datos) {
-        if (!consultaRepository(datos.idConsulta())) {
+        if (!consultaRepository.existsById(datos.idConsulta())) {
             throw new ValidacionDeIntegridad("Id de la consulta informado no existe!");
         }
 
