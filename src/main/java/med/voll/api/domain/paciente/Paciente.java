@@ -49,7 +49,7 @@ public class Paciente {
         }
     }
 
-    public void desactivarPaciente() {
+    public void eliminar() {
         this.activo = false;
     }
 }
