@@ -1,18 +1,42 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import med.voll.api.domain.paciente.DatosDetallesPaciente;
+import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.domain.paciente.PacienteRepository;
 import med.voll.api.dto.DatosRegistroPaciente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
-@Repository
+@RestController
+@RequestMapping("/paciente")
+@SecurityRequirement(name = "bearer-key")
+@SuppressWarnings("all")
 public class PacienteController {
 
+    @Autowired
+    private PacienteRepository repository;
+
     @PostMapping
-    public void registrar(@RequestBody DatosRegistroPaciente datos) {
-        System.out.println("datos recibidos: " + datos);
+    @Transactional
+    @Operation(summary = "Registra un nuevo paciente")
+    public ResponseEntity registrar(@RequestBody @Valid DatosRegistroPaciente datos, UriComponentsBuilder uriComponentsBuilder) {
+        var paciente = new Paciente(datos);
+        repository.save(paciente);
+
+        var uri = uriComponentsBuilder.path("/pacientes/{id").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DatosDetallesPaciente(paciente));
     }
+
+
 }
