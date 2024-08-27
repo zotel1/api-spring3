@@ -37,7 +37,7 @@ public class Paciente {
         this.direccion = new Direccion(datosRegistroPaciente.direccion());
     }
 
-    public void actualizarDatos(DatosActualizarPaciente datosActualizarPaciente) {
+    public void actualizarDatos(DatosActualizacionPaciente datosActualizarPaciente) {
         if (datosActualizarPaciente.nombre() != null) {
             this.nombre = datosActualizarPaciente.nombre();
         }

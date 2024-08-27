@@ -4,17 +4,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DatosDetallesPaciente;
+import med.voll.api.domain.paciente.DatosListaPaciente;
 import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.domain.paciente.PacienteRepository;
 import med.voll.api.dto.DatosRegistroPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
@@ -37,6 +36,10 @@ public class PacienteController {
         var uri = uriComponentsBuilder.path("/pacientes/{id").buildAndExpand(paciente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosDetallesPaciente(paciente));
     }
+
+    @GetMapping
+    @Operation(summary = "Obtiene el listado para los pacientes")
+    public ResponseEntity<Page<DatosListaPaciente>>
 
 
 }
